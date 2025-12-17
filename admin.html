@@ -120,10 +120,21 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            flex-shrink: 0;
         }
         
         .logo:hover {
             color: var(--accent-color);
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
         }
         
         .main-nav ul {
@@ -143,6 +154,7 @@
             height: 40px;
             display: flex;
             align-items: center;
+            gap: 0.5rem;
         }
         
         .main-nav a:hover, .main-nav a.active {
@@ -186,6 +198,51 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 1rem;
+        }
+        
+        /* ПОДВАЛ - Горизонтальное расположение */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 0 1.25rem;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 1.875rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 1.25rem;
+        }
+        
+        .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.9375rem;
+            color: white;
+        }
+        
+        .footer-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.625rem;
+            line-height: 1.6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.25rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            width: 100%;
         }
         
         /* КНОПКИ */
@@ -379,6 +436,7 @@
         .action-buttons {
             display: flex;
             gap: 0.5rem;
+            flex-wrap: wrap;
         }
         
         .categories-manager {
@@ -475,46 +533,6 @@
             justify-content: flex-end;
         }
         
-        /* ПОДВАЛ */
-        .footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 2.5rem 0 1.25rem;
-            margin-top: auto;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.875rem;
-            margin-bottom: 1.875rem;
-        }
-        
-        .footer-section {
-            margin-bottom: 1.25rem;
-        }
-        
-        .footer-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.9375rem;
-            color: white;
-        }
-        
-        .footer-description {
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 0.625rem;
-            line-height: 1.6;
-        }
-        
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 1.25rem;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.6);
-        }
-        
         /* АНИМАЦИИ */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -535,7 +553,88 @@
         .mb-3 { margin-bottom: 1.5rem; }
         .hidden { display: none !important; }
         
-        /* АДАПТИВНОСТЬ */
+        /* АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .main-nav {
+                display: none;
+                order: 3;
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            .main-nav.active {
+                display: block;
+            }
+            
+            .main-nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .main-nav a {
+                width: 100%;
+                justify-content: center;
+                height: 44px;
+            }
+            
+            .user-info {
+                margin-left: 0;
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .page-title {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .admin-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab-btn {
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .footer-section {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 991px) {
+            .action-buttons {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .btn-sm {
+                width: 100%;
+            }
+        }
+        
         @media (min-width: 1200px) {
             .page-with-sidebar {
                 display: flex;
@@ -609,8 +708,13 @@
                     <span>СпецТехМастер</span>
                 </a>
                 
+                <!-- Кнопка мобильного меню -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
                 <!-- Меню -->
-                <nav class="main-nav">
+                <nav class="main-nav" id="mainNav">
                     <ul>
                         <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
                         <li><a href="catalog.html"><i class="fas fa-truck-monster"></i> Каталог</a></li>
@@ -744,9 +848,9 @@
                 
                 <div class="footer-section">
                     <h3 class="footer-title">Контакты</h3>
-                    <p>+7 (495) 123-45-67</p>
-                    <p>info@spectechmaster.ru</p>
-                    <p>Москва, ул. Строителей, 15</p>
+                    <p>+7 (928) 714-97-23</p>
+                    <p>bog.men98@gmail.com</p>
+                    <p>Нальчик, ул. Кулиева, д. 20</p>
                 </div>
                 
                 <div class="footer-section">
@@ -758,13 +862,30 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 СпецТехМастер. Все права защищены.</p>
+                <p>&copy; 2025 СпецТехМастер. Все права защищены.</p>
             </div>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Мобильное меню
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mainNav = document.getElementById('mainNav');
+            
+            if (mobileMenuToggle && mainNav) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mainNav.classList.toggle('active');
+                });
+                
+                // Закрытие меню при клике вне его
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.main-nav') && !event.target.closest('.mobile-menu-toggle')) {
+                        mainNav.classList.remove('active');
+                    }
+                });
+            }
+            
             // Проверка авторизации
             const userData = JSON.parse(localStorage.getItem('user'));
             if (!userData || userData.role !== 'admin') {
