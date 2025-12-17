@@ -109,6 +109,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
         
         .logo {
@@ -120,10 +121,25 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            flex: 1;
         }
         
         .logo:hover {
             color: var(--accent-color);
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .main-nav {
+            display: flex;
         }
         
         .main-nav ul {
@@ -184,6 +200,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
         
         /* КНОПКИ */
@@ -248,14 +266,20 @@
         }
         
         .footer-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.875rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
             margin-bottom: 1.875rem;
+            flex-direction: column;
+            align-items: center;
         }
         
         .footer-section {
             margin-bottom: 1.25rem;
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
         }
         
         .footer-title {
@@ -277,6 +301,7 @@
             padding-top: 1.25rem;
             text-align: center;
             color: rgba(255, 255, 255, 0.6);
+            width: 100%;
         }
         
         /* ЛИЧНЫЙ КАБИНЕТ */
@@ -303,12 +328,6 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
             margin-bottom: 2rem;
-        }
-        
-        @media (min-width: 768px) {
-            .user-stats {
-                grid-template-columns: repeat(4, 1fr);
-            }
         }
         
         .stat-card {
@@ -511,60 +530,131 @@
         .mb-3 { margin-bottom: 1.5rem; }
         .hidden { display: none !important; }
         
-        /* АДАПТИВНОСТЬ */
-        @media (min-width: 768px) {
-            .welcome-section {
-                padding: 2.5rem;
-            }
-            
-            .requests-section {
-                padding: 2.5rem;
-            }
-        }
-        
-        @media (min-width: 1200px) {
-            .page-with-sidebar {
-                display: flex;
-                min-height: calc(100vh - 140px);
-            }
-            
-            .sidebar {
-                width: 250px;
-                background-color: var(--primary-color);
-                padding: 2rem 1rem;
-                flex-shrink: 0;
-            }
-            
-            .sidebar-nav ul {
-                list-style: none;
-            }
-            
-            .sidebar-nav a {
+        /* АДАПТИВНОСТЬ ДЛЯ СМАРТФОНОВ */
+        @media (max-width: 768px) {
+            .menu-toggle {
                 display: block;
-                color: white;
-                text-decoration: none;
-                padding: 1rem;
-                margin-bottom: 0.5rem;
-                border-radius: var(--radius);
-                transition: var(--transition);
-                height: 50px;
-                display: flex;
-                align-items: center;
+            }
+            
+            .main-nav {
+                display: none;
+                width: 100%;
+                order: 3;
+                margin-top: 1rem;
+            }
+            
+            .main-nav.active {
+                display: block;
+            }
+            
+            .main-nav ul {
+                flex-direction: column;
                 gap: 0.5rem;
             }
             
-            .sidebar-nav a:hover, .sidebar-nav a.active {
-                background-color: rgba(255, 255, 255, 0.1);
-                color: var(--accent-color);
+            .main-nav a {
+                justify-content: center;
+                padding: 0.75rem;
             }
             
-            .main-content-with-sidebar {
-                flex: 1;
-                padding: 2rem;
+            .user-info {
+                display: none !important;
             }
             
-            .main-content {
-                padding: 0;
+            /* Адаптивность контента */
+            .page-title {
+                font-size: 1.5rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .welcome-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .user-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .section-title {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .filter-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .request-header {
+                flex-direction: column;
+            }
+            
+            .request-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .request-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+            
+            .btn {
+                width: 100%;
+                min-width: auto;
+            }
+            
+            /* Футер на мобильных */
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-section {
+                text-align: center;
+                min-width: 100%;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .user-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            /* Горизонтальное расположение футера на десктопах */
+            .footer-content {
+                flex-direction: row;
+                align-items: flex-start;
+                text-align: left;
+            }
+            
+            .footer-section {
+                text-align: left;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                min-width: 100px;
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+            
+            .welcome-section,
+            .requests-section,
+            .stat-card,
+            .request-item {
+                padding: 1.25rem;
             }
         }
     </style>
@@ -579,6 +669,11 @@
                     <span style="font-size: 1.8rem;">🏗️</span>
                     <span>СпецТехМастер</span>
                 </a>
+                
+                <!-- Кнопка бургер-меню -->
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
                 
                 <!-- Меню -->
                 <nav class="main-nav">
@@ -690,9 +785,9 @@
                 
                 <div class="footer-section">
                     <h3 class="footer-title">Контакты</h3>
-                    <p>+7 (495) 123-45-67</p>
-                    <p>info@spectechmaster.ru</p>
-                    <p>Москва, ул. Строителей, 15</p>
+                    <p>+7 (928) 714-97-23</p>
+                    <p>bog.men98@gmail.com</p>
+                    <p>Нальчик, ул. Кулиева, д. 20</p>
                 </div>
                 
                 <div class="footer-section">
@@ -704,13 +799,43 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 СпецТехМастер. Все права защищены.</p>
+                <p>&copy; 2025 СпецТехМастер. Все права защищены.</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // Мобильное меню
         document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainNav = document.querySelector('.main-nav');
+            
+            // Обработчик клика по кнопке меню
+            menuToggle.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+                menuToggle.innerHTML = mainNav.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Закрываем меню при клике на ссылку
+            document.querySelectorAll('.main-nav a').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        mainNav.classList.remove('active');
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            });
+            
+            // Закрываем меню при изменении размера окна
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    mainNav.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+            
             // Проверка авторизации
             const userData = JSON.parse(localStorage.getItem('user'));
             if (!userData || userData.role === 'admin') {
