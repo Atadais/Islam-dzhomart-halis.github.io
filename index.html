@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СпецТехМастер - Главная</title>
+    
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* БАЗОВЫЕ СТИЛИ И СБРОС */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #1e3a5c;
+            --accent-color: #ff6b35;
+            --bg-color: #f5f7fa;
+            --text-color: #333333;
+            --text-light: #666666;
+            --error-color: #dc3545;
+            --success-color: #28a745;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --radius: 8px;
+        }
+        
+        html {
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* КОНТЕЙНЕРЫ */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* ТИПОГРАФИЯ */
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        h2 {
+            font-size: 1.75rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: #e55a2b;
+        }
+        
+        /* ШАПКА И НАВИГАЦИЯ */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo:hover {
+            color: var(--accent-color);
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 0.75rem;
+        }
+        
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .main-nav a:hover, .main-nav a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--accent-color);
+        }
+        
+        /* ОСНОВНОЙ КОНТЕНТ */
+        .main-content {
+            flex: 1;
+            padding: 2rem 0;
+        }
+        
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.25rem;
+            text-align: center;
+        }
+        
+        /* ПОДВАЛ */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 0 1.25rem;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.875rem;
+            margin-bottom: 1.875rem;
+        }
+        
+        .footer-section {
+            margin-bottom: 1.25rem;
+        }
+        
+        .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.9375rem;
+            color: white;
+        }
+        
+        .footer-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.625rem;
+            line-height: 1.6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.25rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* КНОПКИ */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            height: 44px;
+            line-height: 1;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .btn:hover {
+            background-color: #152642;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e55a2b;
+        }
+        
+        /* ГЛАВНАЯ СТРАНИЦА */
+        .hero-section {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #e8edf5 100%);
+            border-radius: 0.9375rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .news-section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 0.625rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-size: 1.125rem;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .news-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .news-image-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .news-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .news-card:hover .news-image {
+            transform: scale(1.1);
+        }
+        
+        .news-content {
+            padding: 1.5rem;
+        }
+        
+        .news-category {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .news-date {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .news-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+        
+        .news-description {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .news-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .news-link:after {
+            content: '→';
+            margin-left: 0.5rem;
+        }
+        
+        .features-section {
+            padding: 3rem 0;
+            background-color: var(--bg-color);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            padding: 2rem 1.5rem;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .feature-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+        
+        .feature-description {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        
+        .counter-section {
+            margin: 2.5rem 0;
+        }
+        
+        .counter-card {
+            background-color: white;
+            border-radius: 0.9375rem;
+            padding: 1.875rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            max-width: 300px;
+            margin: 0 auto;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .counter-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.9375rem;
+        }
+        
+        .counter-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0.625rem 0;
+            transition: all 0.5s ease;
+            display: inline-block;
+        }
+        
+        .counter-subtitle {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        /* АДАПТИВНОСТЬ */
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 2.25rem;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: row;
+            }
+            
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .container {
+                padding: 0 2rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .page-with-sidebar {
+                display: flex;
+                min-height: calc(100vh - 140px);
+            }
+            
+            .sidebar {
+                width: 250px;
+                background-color: var(--primary-color);
+                padding: 2rem 1rem;
+                flex-shrink: 0;
+            }
+            
+            .sidebar-nav ul {
+                list-style: none;
+            }
+            
+            .sidebar-nav a {
+                display: block;
+                color: white;
+                text-decoration: none;
+                padding: 1rem;
+                margin-bottom: 0.5rem;
+                border-radius: var(--radius);
+                transition: var(--transition);
+                height: 50px;
+                display: flex;
+                align-items: center;
+            }
+            
+            .sidebar-nav a:hover, .sidebar-nav a.active {
+                background-color: rgba(255, 255, 255, 0.1);
+                color: var(--accent-color);
+            }
+            
+            .main-content-with-sidebar {
+                flex: 1;
+                padding: 2rem;
+            }
+        }
+        
+        /* АНИМАЦИИ */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        /* УТИЛИТЫ */
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Логотип -->
+                <a href="index.html" class="logo">
+                    <span style="font-size: 1.8rem;">🏗️</span>
+                    <span>СпецТехМастер</span>
+                </a>
+                
+                <!-- Меню -->
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html" class="active"><i class="fas fa-home"></i> Главная</a></li>
+                        <li><a href="catalog.html"><i class="fas fa-truck-monster"></i> Каталог</a></li>
+                        <li><a href="services.html"><i class="fas fa-tools"></i> Услуги</a></li>
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> О компании</a></li>
+                        <li><a href="contacts.html"><i class="fas fa-address-book"></i> Контакты</a></li>
+                        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Войти</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Герой секция -->
+            <section class="hero-section animate">
+                <h1 class="hero-title">Продажа и аренда спецтехники</h1>
+                <p class="hero-description">
+                    «СпецТехМастер» — ведущий портал для торговли строительной, дорожной и сельскохозяйственной техникой. 
+                    Более 10 лет на рынке, 500+ единиц техники в наличии, гарантия качества.
+                </p>
+                <div class="hero-buttons">
+                    <a href="catalog.html" class="btn btn-accent">Смотреть каталог</a>
+                    <a href="register.html" class="btn">Зарегистрироваться</a>
+                </div>
+            </section>
+
+            <!-- Счетчик посещений -->
+            <section class="counter-section animate">
+                <div class="counter-card">
+                    <h2 class="counter-title">Посетителей онлайн</h2>
+                    <div class="counter-number" id="visitor-counter">128</div>
+                    <p class="counter-subtitle">Сейчас на сайте</p>
+                </div>
+            </section>
+
+            <!-- Новые поступления -->
+            <section class="news-section">
+                <h2 class="section-title">Новые поступления</h2>
+                <p class="section-subtitle">Самые актуальные предложения этого месяца</p>
+                
+                <div class="news-grid">
+                    <!-- Карточка 1 -->
+                    <article class="news-card animate">
+                        <div class="news-image-container">
+                            <img src="https://avatars.mds.yandex.net/get-autoru-vos/5494481/fb4bb9fc82bd674f31c80b9aef6457ca/584x438" 
+                                 alt="Экскаватор-погрузчик JCB 4CX" class="news-image">
+                        </div>
+                        <div class="news-content">
+                            <span class="news-category">Экскаваторы</span>
+                            <span class="news-date">15.11.2023</span>
+                            <h3 class="news-title">Экскаватор-погрузчик JCB 4CX</h3>
+                            <p class="news-description">
+                                Компактный и мощный экскаватор-погрузчик для городского строительства.
+                            </p>
+                            <a href="#" class="news-link">Подробнее</a>
+                        </div>
+                    </article>
+
+                    <!-- Карточка 2 -->
+                    <article class="news-card animate">
+                        <div class="news-image-container">
+                            <img src="https://spetsservice.ru/wp-content/uploads/2025/04/cat950m.jpg" 
+                                 alt="Фронтальный погрузчик CAT 950M" class="news-image">
+                        </div>
+                        <div class="news-content">
+                            <span class="news-category">Погрузчики</span>
+                            <span class="news-date">10.11.2023</span>
+                            <h3 class="news-title">Фронтальный погрузчик CAT 950M</h3>
+                            <p class="news-description">
+                                Высокопроизводительный погрузчик для работы в карьерах и на складах.
+                            </p>
+                            <a href="#" class="news-link">Подробнее</a>
+                        </div>
+                    </article>
+
+                    <!-- Карточка 3 -->
+                    <article class="news-card animate">
+                        <div class="news-image-container">
+                            <img src="https://s.alicdn.com/@sc04/kf/H8295e920d7ca4e7db11ad511a37afda9r.jpg_720x720q50.jpg" 
+                                 alt="Мини-экскаватор Kubota U35-4" class="news-image">
+                        </div>
+                        <div class="news-content">
+                            <span class="news-category">Мини-техника</span>
+                            <span class="news-date">05.11.2023</span>
+                            <h3 class="news-title">Мини-экскаватор Kubota U35-4</h3>
+                            <p class="news-description">
+                                Компактный экскаватор для коммунальных работ и ландшафтного дизайна.
+                            </p>
+                            <a href="#" class="news-link">Подробнее</a>
+                        </div>
+                    </article>
+
+                    <!-- Карточка 4 -->
+                    <article class="news-card animate">
+                        <div class="news-image-container">
+                            <img src="https://images.satu.kz/228337786_w640_h640_arenda-avtokrana-xcmg.jpg" 
+                                 alt="Автокран XCMG QY25K" class="news-image">
+                        </div>
+                        <div class="news-content">
+                            <span class="news-category">Краны</span>
+                            <span class="news-date">01.11.2023</span>
+                            <h3 class="news-title">Автокран XCMG QY25K</h3>
+                            <p class="news-description">
+                                Мобильный кран грузоподъемностью 25 тонн для монтажных работ.
+                            </p>
+                            <a href="#" class="news-link">Подробнее</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Преимущества -->
+            <section class="features-section">
+                <h2 class="section-title">Почему выбирают нас</h2>
+                <div class="features-grid">
+                    <div class="feature-card animate">
+                        <div class="feature-icon">🚚</div>
+                        <h3 class="feature-title">Доставка по РФ</h3>
+                        <p class="feature-description">
+                            Быстрая доставка техники в любой регион России
+                        </p>
+                    </div>
+                    <div class="feature-card animate">
+                        <div class="feature-icon">🔧</div>
+                        <h3 class="feature-title">Сервисное обслуживание</h3>
+                        <p class="feature-description">
+                            Гарантия и полное техническое обслуживание
+                        </p>
+                    </div>
+                    <div class="feature-card animate">
+                        <div class="feature-icon">💳</div>
+                        <h3 class="feature-title">Рассрочка</h3>
+                        <p class="feature-description">
+                            Гибкие условия рассрочки и кредитования
+                        </p>
+                    </div>
+                    <div class="feature-card animate">
+                        <div class="feature-icon">📞</div>
+                        <h3 class="feature-title">Поддержка 24/7</h3>
+                        <p class="feature-description">
+                            Круглосуточная техническая поддержка клиентов
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <span style="font-size: 1.8rem;">🏗️</span>
+                        <span>СпецТехМастер</span>
+                    </div>
+                    <p class="footer-description">
+                        Ведущий портал для торговли спецтехникой. Продажа, аренда и обслуживание.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Контакты</h3>
+                    <p>+7 (495) 123-45-67</p>
+                    <p>info@spectechmaster.ru</p>
+                    <p>Москва, ул. Строителей, 15</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Часы работы</h3>
+                    <p>Пн-Пт: 9:00-18:00</p>
+                    <p>Сб: 10:00-16:00</p>
+                    <p>Вс: выходной</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 СпецТехМастер. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Счетчик посещений
+        document.addEventListener('DOMContentLoaded', function() {
+            const counter = document.getElementById('visitor-counter');
+            if (counter) {
+                // Генерируем случайное число для демо
+                let count = 120 + Math.floor(Math.random() * 30);
+                counter.textContent = count;
+                
+                // Обновляем счетчик каждые 5 секунд
+                setInterval(() => {
+                    let change = Math.floor(Math.random() * 5) - 2; // -2 до +2
+                    count = Math.max(100, count + change);
+                    counter.textContent = count;
+                    
+                    // Анимация обновления
+                    counter.style.transform = 'scale(1.1)';
+                    counter.style.color = '#ff8c00';
+                    setTimeout(() => {
+                        counter.style.transform = 'scale(1)';
+                        counter.style.color = 'var(--accent-color)';
+                    }, 300);
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

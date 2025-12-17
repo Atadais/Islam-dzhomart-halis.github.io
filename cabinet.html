@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СпецТехМастер - Личный кабинет</title>
+    
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* БАЗОВЫЕ СТИЛИ И СБРОС */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #1e3a5c;
+            --accent-color: #ff6b35;
+            --bg-color: #f5f7fa;
+            --text-color: #333333;
+            --text-light: #666666;
+            --error-color: #dc3545;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --radius: 8px;
+        }
+        
+        html {
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* КОНТЕЙНЕРЫ */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* ТИПОГРАФИЯ */
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        h2 {
+            font-size: 1.75rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: #e55a2b;
+        }
+        
+        /* ШАПКА И НАВИГАЦИЯ */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo:hover {
+            color: var(--accent-color);
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 0.75rem;
+        }
+        
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .main-nav a:hover, .main-nav a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+            margin-left: 1rem;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        /* ОСНОВНОЙ КОНТЕНТ */
+        .main-content {
+            flex: 1;
+            padding: 2rem 0;
+        }
+        
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        /* КНОПКИ */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            height: 44px;
+            line-height: 1;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .btn:hover {
+            background-color: #152642;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e55a2b;
+        }
+        
+        .btn-danger {
+            background-color: var(--error-color);
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+        }
+        
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: #212529;
+        }
+        
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            height: 36px;
+            font-size: 0.875rem;
+            min-width: 80px;
+        }
+        
+        /* ПОДВАЛ */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 0 1.25rem;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.875rem;
+            margin-bottom: 1.875rem;
+        }
+        
+        .footer-section {
+            margin-bottom: 1.25rem;
+        }
+        
+        .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.9375rem;
+            color: white;
+        }
+        
+        .footer-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.625rem;
+            line-height: 1.6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.25rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* ЛИЧНЫЙ КАБИНЕТ */
+        .welcome-section {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .welcome-text h2 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .user-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .user-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        .requests-section {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .requests-list {
+            margin-top: 1.5rem;
+        }
+        
+        .request-item {
+            background-color: #f8f9fa;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--warning-color);
+            transition: var(--transition);
+        }
+        
+        .request-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .request-item.solved {
+            border-left-color: var(--success-color);
+        }
+        
+        .request-item.rejected {
+            border-left-color: var(--error-color);
+        }
+        
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .request-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.125rem;
+        }
+        
+        .request-date {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        .request-body {
+            margin-bottom: 1rem;
+        }
+        
+        .request-description {
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .request-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .request-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: rgba(30, 58, 92, 0.1);
+            color: var(--primary-color);
+            border-radius: 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .request-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .status-new {
+            background-color: rgba(255, 193, 7, 0.15);
+            color: #856404;
+        }
+        
+        .status-solved {
+            background-color: rgba(40, 167, 69, 0.15);
+            color: #155724;
+        }
+        
+        .status-rejected {
+            background-color: rgba(220, 53, 69, 0.15);
+            color: #721c24;
+        }
+        
+        .request-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-light);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ccc;
+        }
+        
+        /* АНИМАЦИИ */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        /* УТИЛИТЫ */
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .hidden { display: none !important; }
+        
+        /* АДАПТИВНОСТЬ */
+        @media (min-width: 768px) {
+            .welcome-section {
+                padding: 2.5rem;
+            }
+            
+            .requests-section {
+                padding: 2.5rem;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .page-with-sidebar {
+                display: flex;
+                min-height: calc(100vh - 140px);
+            }
+            
+            .sidebar {
+                width: 250px;
+                background-color: var(--primary-color);
+                padding: 2rem 1rem;
+                flex-shrink: 0;
+            }
+            
+            .sidebar-nav ul {
+                list-style: none;
+            }
+            
+            .sidebar-nav a {
+                display: block;
+                color: white;
+                text-decoration: none;
+                padding: 1rem;
+                margin-bottom: 0.5rem;
+                border-radius: var(--radius);
+                transition: var(--transition);
+                height: 50px;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .sidebar-nav a:hover, .sidebar-nav a.active {
+                background-color: rgba(255, 255, 255, 0.1);
+                color: var(--accent-color);
+            }
+            
+            .main-content-with-sidebar {
+                flex: 1;
+                padding: 2rem;
+            }
+            
+            .main-content {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Логотип -->
+                <a href="index.html" class="logo">
+                    <span style="font-size: 1.8rem;">🏗️</span>
+                    <span>СпецТехМастер</span>
+                </a>
+                
+                <!-- Меню -->
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
+                        <li><a href="catalog.html"><i class="fas fa-truck-monster"></i> Каталог</a></li>
+                        <li><a href="services.html"><i class="fas fa-tools"></i> Услуги</a></li>
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> О компании</a></li>
+                        <li><a href="contacts.html"><i class="fas fa-address-book"></i> Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Информация о пользователе -->
+                <div class="user-info" id="userInfo">
+                    <div class="user-avatar" id="userAvatar">ИИ</div>
+                    <div>
+                        <div id="userName">Иван Иванов</div>
+                        <a href="#" id="logoutLink" style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">Выйти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-title">
+                <h1>Личный кабинет</h1>
+                <a href="request.html" class="btn btn-accent">
+                    <i class="fas fa-plus"></i> Создать заявку
+                </a>
+            </div>
+            
+            <!-- Приветствие -->
+            <section class="welcome-section animate">
+                <div class="welcome-text">
+                    <h2>Добро пожаловать, <span id="welcomeUserName">Иван Иванов</span>!</h2>
+                    <p>Здесь вы можете управлять своими заявками на технику и отслеживать их статус.</p>
+                </div>
+                <div class="welcome-actions">
+                    <button class="btn" onclick="location.href='catalog.html'">
+                        <i class="fas fa-truck-monster"></i> Смотреть каталог
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Статистика -->
+            <div class="user-stats">
+                <div class="stat-card animate">
+                    <div class="stat-number" id="totalRequests">5</div>
+                    <div class="stat-label">Всего заявок</div>
+                </div>
+                <div class="stat-card animate">
+                    <div class="stat-number" id="newRequests">3</div>
+                    <div class="stat-label">Новые заявки</div>
+                </div>
+                <div class="stat-card animate">
+                    <div class="stat-number" id="solvedRequests">1</div>
+                    <div class="stat-label">Решенные</div>
+                </div>
+                <div class="stat-card animate">
+                    <div class="stat-number" id="rejectedRequests">1</div>
+                    <div class="stat-label">Отклоненные</div>
+                </div>
+            </div>
+            
+            <!-- Заявки -->
+            <section class="requests-section animate">
+                <div class="section-title">
+                    <h2>Мои заявки</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">Все</button>
+                        <button class="filter-btn" data-filter="new">Новые</button>
+                        <button class="filter-btn" data-filter="solved">Решенные</button>
+                        <button class="filter-btn" data-filter="rejected">Отклоненные</button>
+                    </div>
+                </div>
+                
+                <div class="requests-list" id="requestsList">
+                    <!-- Заявки будут загружены через JavaScript -->
+                </div>
+                
+                <div class="empty-state hidden" id="emptyState">
+                    <i class="fas fa-inbox"></i>
+                    <h3>Заявок пока нет</h3>
+                    <p>Создайте свою первую заявку на технику</p>
+                    <a href="request.html" class="btn btn-accent mt-2">
+                        <i class="fas fa-plus"></i> Создать заявку
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <span style="font-size: 1.8rem;">🏗️</span>
+                        <span>СпецТехМастер</span>
+                    </div>
+                    <p class="footer-description">
+                        Ведущий портал для торговли спецтехникой. Продажа, аренда и обслуживание.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Контакты</h3>
+                    <p>+7 (495) 123-45-67</p>
+                    <p>info@spectechmaster.ru</p>
+                    <p>Москва, ул. Строителей, 15</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Часы работы</h3>
+                    <p>Пн-Пт: 9:00-18:00</p>
+                    <p>Сб: 10:00-16:00</p>
+                    <p>Вс: выходной</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 СпецТехМастер. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Проверка авторизации
+            const userData = JSON.parse(localStorage.getItem('user'));
+            if (!userData || userData.role === 'admin') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Отображение информации о пользователе
+            document.getElementById('userName').textContent = userData.name;
+            document.getElementById('welcomeUserName').textContent = userData.name;
+            document.getElementById('userAvatar').textContent = getInitials(userData.name);
+            
+            // Выход из системы
+            document.getElementById('logoutLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('user');
+                window.location.href = 'index.html';
+            });
+            
+            // Загрузка заявок
+            loadUserRequests();
+            
+            // Фильтрация заявок
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    filterRequests(filter);
+                });
+            });
+        });
+        
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').toUpperCase();
+        }
+        
+        function loadUserRequests() {
+            // Тестовые данные заявок
+            const requests = [
+                {
+                    id: 1,
+                    title: 'Требуется экскаватор для земляных работ',
+                    description: 'Необходим экскаватор для разработки котлована под фундамент. Работы в черте города.',
+                    category: 'Экскаваторы',
+                    date: '15.11.2023 10:30',
+                    status: 'new'
+                },
+                {
+                    id: 2,
+                    title: 'Аренда фронтального погрузчика',
+                    description: 'Нужен фронтальный погрузчик для погрузки сыпучих материалов на склад.',
+                    category: 'Погрузчики',
+                    date: '10.11.2023 14:20',
+                    status: 'solved'
+                },
+                {
+                    id: 3,
+                    title: 'Покупка мини-экскаватора',
+                    description: 'Интересует покупка мини-экскаватора для коммунальных работ.',
+                    category: 'Мини-техника',
+                    date: '05.11.2023 09:15',
+                    status: 'rejected'
+                },
+                {
+                    id: 4,
+                    title: 'Требуется автокран 25 тонн',
+                    description: 'Необходим автокран для монтажа металлоконструкций.',
+                    category: 'Краны',
+                    date: '01.11.2023 16:45',
+                    status: 'new'
+                },
+                {
+                    id: 5,
+                    title: 'Аренда бульдозера',
+                    description: 'Требуется бульдозер для планировки территории строительной площадки.',
+                    category: 'Бульдозеры',
+                    date: '28.10.2023 11:10',
+                    status: 'new'
+                }
+            ];
+            
+            // Сохраняем заявки в localStorage
+            localStorage.setItem('userRequests', JSON.stringify(requests));
+            
+            // Обновляем статистику
+            updateStats(requests);
+            
+            // Отображаем заявки
+            renderRequests(requests);
+        }
+        
+        function updateStats(requests) {
+            const total = requests.length;
+            const newCount = requests.filter(r => r.status === 'new').length;
+            const solvedCount = requests.filter(r => r.status === 'solved').length;
+            const rejectedCount = requests.filter(r => r.status === 'rejected').length;
+            
+            document.getElementById('totalRequests').textContent = total;
+            document.getElementById('newRequests').textContent = newCount;
+            document.getElementById('solvedRequests').textContent = solvedCount;
+            document.getElementById('rejectedRequests').textContent = rejectedCount;
+        }
+        
+        function renderRequests(requests) {
+            const container = document.getElementById('requestsList');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (requests.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            
+            emptyState.classList.add('hidden');
+            container.innerHTML = '';
+            
+            requests.forEach(request => {
+                const statusClass = `status-${request.status}`;
+                const statusText = getStatusText(request.status);
+                const statusBadge = `<span class="request-status ${statusClass}">${statusText}</span>`;
+                
+                const requestElement = document.createElement('div');
+                requestElement.className = `request-item ${request.status}`;
+                requestElement.innerHTML = `
+                    <div class="request-header">
+                        <div>
+                            <div class="request-title">${request.title}</div>
+                            <div class="request-date">${request.date}</div>
+                        </div>
+                        ${statusBadge}
+                    </div>
+                    <div class="request-body">
+                        <p class="request-description">${request.description}</p>
+                    </div>
+                    <div class="request-footer">
+                        <span class="request-category">${request.category}</span>
+                        <div class="request-actions">
+                            ${request.status === 'new' ? `
+                                <button class="btn btn-danger btn-sm" onclick="deleteRequest(${request.id})">
+                                    <i class="fas fa-trash"></i> Удалить
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(requestElement);
+            });
+        }
+        
+        function filterRequests(filter) {
+            const requests = JSON.parse(localStorage.getItem('userRequests') || '[]');
+            
+            if (filter === 'all') {
+                renderRequests(requests);
+            } else {
+                const filtered = requests.filter(r => r.status === filter);
+                renderRequests(filtered);
+            }
+        }
+        
+        function getStatusText(status) {
+            switch(status) {
+                case 'new': return 'Новая';
+                case 'solved': return 'Решена';
+                case 'rejected': return 'Отклонена';
+                default: return status;
+            }
+        }
+        
+        function deleteRequest(id) {
+            if (!confirm('Вы уверены, что хотите удалить эту заявку?')) {
+                return;
+            }
+            
+            let requests = JSON.parse(localStorage.getItem('userRequests') || '[]');
+            requests = requests.filter(r => r.id !== id);
+            localStorage.setItem('userRequests', JSON.stringify(requests));
+            
+            updateStats(requests);
+            renderRequests(requests);
+            
+            // Показываем уведомление
+            alert('Заявка успешно удалена!');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СпецТехМастер - Панель администратора</title>
+    
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* БАЗОВЫЕ СТИЛИ И СБРОС */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #1e3a5c;
+            --accent-color: #ff6b35;
+            --bg-color: #f5f7fa;
+            --text-color: #333333;
+            --text-light: #666666;
+            --error-color: #dc3545;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --radius: 8px;
+        }
+        
+        html {
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* КОНТЕЙНЕРЫ */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* ТИПОГРАФИЯ */
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        h2 {
+            font-size: 1.75rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: #e55a2b;
+        }
+        
+        /* ШАПКА И НАВИГАЦИЯ */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo:hover {
+            color: var(--accent-color);
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 0.75rem;
+        }
+        
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .main-nav a:hover, .main-nav a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+            margin-left: 1rem;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        /* ОСНОВНОЙ КОНТЕНТ */
+        .main-content {
+            flex: 1;
+            padding: 2rem 0;
+        }
+        
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        /* КНОПКИ */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            height: 44px;
+            line-height: 1;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .btn:hover {
+            background-color: #152642;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e55a2b;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+        }
+        
+        .btn-danger {
+            background-color: var(--error-color);
+        }
+        
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: #212529;
+        }
+        
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            height: 36px;
+            font-size: 0.875rem;
+            min-width: 80px;
+        }
+        
+        /* АДМИН ПАНЕЛЬ */
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .admin-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        .admin-tabs {
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+        
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        
+        .tab-btn:hover {
+            color: var(--primary-color);
+        }
+        
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--accent-color);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .requests-table {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: left;
+            padding: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+        
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .status-new {
+            background-color: rgba(255, 193, 7, 0.15);
+            color: #856404;
+        }
+        
+        .status-solved {
+            background-color: rgba(40, 167, 69, 0.15);
+            color: #155724;
+        }
+        
+        .status-rejected {
+            background-color: rgba(220, 53, 69, 0.15);
+            color: #721c24;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .categories-manager {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .category-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        
+        .category-item {
+            background-color: #f8f9fa;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 200px;
+        }
+        
+        .category-name {
+            font-weight: 500;
+        }
+        
+        .category-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .add-category-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .add-category-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+        
+        /* МОДАЛЬНЫЕ ОКНА */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+        }
+        
+        .modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: flex-end;
+        }
+        
+        /* ПОДВАЛ */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 0 1.25rem;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.875rem;
+            margin-bottom: 1.875rem;
+        }
+        
+        .footer-section {
+            margin-bottom: 1.25rem;
+        }
+        
+        .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.9375rem;
+            color: white;
+        }
+        
+        .footer-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.625rem;
+            line-height: 1.6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.25rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* АНИМАЦИИ */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        /* УТИЛИТЫ */
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .hidden { display: none !important; }
+        
+        /* АДАПТИВНОСТЬ */
+        @media (min-width: 1200px) {
+            .page-with-sidebar {
+                display: flex;
+                min-height: calc(100vh - 140px);
+            }
+            
+            .sidebar {
+                width: 250px;
+                background-color: var(--primary-color);
+                padding: 2rem 1rem;
+                flex-shrink: 0;
+            }
+            
+            .sidebar-nav ul {
+                list-style: none;
+            }
+            
+            .sidebar-nav a {
+                display: block;
+                color: white;
+                text-decoration: none;
+                padding: 1rem;
+                margin-bottom: 0.5rem;
+                border-radius: var(--radius);
+                transition: var(--transition);
+                height: 50px;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .sidebar-nav a:hover, .sidebar-nav a.active {
+                background-color: rgba(255, 255, 255, 0.1);
+                color: var(--accent-color);
+            }
+            
+            .main-content-with-sidebar {
+                flex: 1;
+                padding: 2rem;
+            }
+            
+            .main-content {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Модальное окно для отклонения заявки -->
+    <div id="rejectModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">Отклонение заявки</h3>
+            <div class="form-group">
+                <label for="rejectReason" class="form-label">Причина отклонения</label>
+                <textarea id="rejectReason" class="form-input" rows="4" placeholder="Укажите причину отклонения заявки"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('rejectModal')">Отмена</button>
+                <button class="btn btn-danger" onclick="confirmReject()">Отклонить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Логотип -->
+                <a href="index.html" class="logo">
+                    <span style="font-size: 1.8rem;">🏗️</span>
+                    <span>СпецТехМастер</span>
+                </a>
+                
+                <!-- Меню -->
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
+                        <li><a href="catalog.html"><i class="fas fa-truck-monster"></i> Каталог</a></li>
+                        <li><a href="services.html"><i class="fas fa-tools"></i> Услуги</a></li>
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> О компании</a></li>
+                        <li><a href="contacts.html"><i class="fas fa-address-book"></i> Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Информация о пользователе -->
+                <div class="user-info" id="userInfo">
+                    <div class="user-avatar" id="userAvatar">А</div>
+                    <div>
+                        <div id="userName">Администратор</div>
+                        <a href="#" id="logoutLink" style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">Выйти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">Панель администратора</h1>
+            
+            <!-- Статистика -->
+            <div class="admin-stats">
+                <div class="stat-card animate">
+                    <div class="stat-number" id="totalUsers">15</div>
+                    <div class="stat-label">Пользователей</div>
+                </div>
+                <div class="stat-card animate">
+                    <div class="stat-number" id="totalRequests">42</div>
+                    <div class="stat-label">Всего заявок</div>
+                </div>
+                <div class="stat-card animate">
+                    <div class="stat-number" id="newRequests">8</div>
+                    <div class="stat-label">Новых заявок</div>
+                </div>
+                <div class="stat-card animate">
+                    <div class="stat-number" id="solvedRequests">28</div>
+                    <div class="stat-label">Решенных</div>
+                </div>
+            </div>
+            
+            <!-- Вкладки -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="requests">Управление заявками</button>
+                <button class="tab-btn" data-tab="categories">Управление категориями</button>
+                <button class="tab-btn" data-tab="users">Пользователи</button>
+            </div>
+            
+            <!-- Вкладка: Управление заявками -->
+            <div id="requestsTab" class="tab-content active">
+                <div class="requests-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Дата</th>
+                                <th>Пользователь</th>
+                                <th>Название</th>
+                                <th>Категория</th>
+                                <th>Статус</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requestsTableBody">
+                            <!-- Заявки будут загружены через JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Вкладка: Управление категориями -->
+            <div id="categoriesTab" class="tab-content">
+                <div class="categories-manager">
+                    <h3>Категории техники</h3>
+                    <div class="category-list" id="categoriesList">
+                        <!-- Категории будут загружены через JavaScript -->
+                    </div>
+                    
+                    <h3>Добавить категорию</h3>
+                    <div class="add-category-form">
+                        <input type="text" id="newCategoryName" class="add-category-input" placeholder="Название новой категории">
+                        <button class="btn btn-accent" onclick="addCategory()">
+                            <i class="fas fa-plus"></i> Добавить
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Вкладка: Пользователи -->
+            <div id="usersTab" class="tab-content">
+                <div class="requests-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>ФИО</th>
+                                <th>Логин</th>
+                                <th>Email</th>
+                                <th>Роль</th>
+                                <th>Заявок</th>
+                                <th>Дата регистрации</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Пользователи будут загружены через JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <span style="font-size: 1.8rem;">🏗️</span>
+                        <span>СпецТехМастер</span>
+                    </div>
+                    <p class="footer-description">
+                        Ведущий портал для торговли спецтехникой. Продажа, аренда и обслуживание.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Контакты</h3>
+                    <p>+7 (495) 123-45-67</p>
+                    <p>info@spectechmaster.ru</p>
+                    <p>Москва, ул. Строителей, 15</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Часы работы</h3>
+                    <p>Пн-Пт: 9:00-18:00</p>
+                    <p>Сб: 10:00-16:00</p>
+                    <p>Вс: выходной</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 СпецТехМастер. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Проверка авторизации
+            const userData = JSON.parse(localStorage.getItem('user'));
+            if (!userData || userData.role !== 'admin') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Отображение информации о пользователе
+            document.getElementById('userName').textContent = userData.name;
+            document.getElementById('userAvatar').textContent = 'A';
+            
+            // Выход из системы
+            document.getElementById('logoutLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('user');
+                window.location.href = 'index.html';
+            });
+            
+            // Инициализация вкладок
+            initTabs();
+            
+            // Загрузка данных
+            loadAdminData();
+        });
+        
+        function initTabs() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Убираем активный класс у всех кнопок и контента
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Добавляем активный класс текущей кнопке и соответствующему контенту
+                    this.classList.add('active');
+                    document.getElementById(`${tabId}Tab`).classList.add('active');
+                });
+            });
+        }
+        
+        function loadAdminData() {
+            loadRequests();
+            loadCategories();
+            loadUsers();
+            updateStats();
+        }
+        
+        function loadRequests() {
+            // Загружаем все заявки
+            let allRequests = JSON.parse(localStorage.getItem('allRequests') || '[]');
+            
+            // Если нет заявок, создаем тестовые
+            if (allRequests.length === 0) {
+                allRequests = generateTestRequests();
+                localStorage.setItem('allRequests', JSON.stringify(allRequests));
+            }
+            
+            // Отображаем заявки в таблице
+            const tableBody = document.getElementById('requestsTableBody');
+            tableBody.innerHTML = '';
+            
+            allRequests.forEach(request => {
+                const statusClass = `status-${request.status}`;
+                const statusText = getStatusText(request.status);
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${request.id}</td>
+                    <td>${request.date}</td>
+                    <td>${request.userName}</td>
+                    <td>${request.title}</td>
+                    <td>${request.category}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            ${request.status === 'new' ? `
+                                <button class="btn btn-success btn-sm" onclick="solveRequest(${request.id})">
+                                    <i class="fas fa-check"></i> Решить
+                                </button>
+                                <button class="btn btn-danger btn-sm" onclick="openRejectModal(${request.id})">
+                                    <i class="fas fa-times"></i> Отклонить
+                                </button>
+                            ` : ''}
+                        </div>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        function loadCategories() {
+            let categories = JSON.parse(localStorage.getItem('categories') || '[]');
+            
+            // Если нет категорий, создаем стандартные
+            if (categories.length === 0) {
+                categories = [
+                    { id: 1, name: 'Экскаваторы' },
+                    { id: 2, name: 'Погрузчики' },
+                    { id: 3, name: 'Бульдозеры' },
+                    { id: 4, name: 'Краны' },
+                    { id: 5, name: 'Мини-техника' },
+                    { id: 6, name: 'Самосвалы' },
+                    { id: 7, name: 'Катки' },
+                    { id: 8, name: 'Бетономешалки' }
+                ];
+                localStorage.setItem('categories', JSON.stringify(categories));
+            }
+            
+            // Отображаем категории
+            const categoriesList = document.getElementById('categoriesList');
+            categoriesList.innerHTML = '';
+            
+            categories.forEach(category => {
+                const categoryItem = document.createElement('div');
+                categoryItem.className = 'category-item';
+                categoryItem.innerHTML = `
+                    <span class="category-name">${category.name}</span>
+                    <div class="category-actions">
+                        <button class="btn btn-danger btn-sm" onclick="deleteCategory(${category.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                categoriesList.appendChild(categoryItem);
+            });
+        }
+        
+        function loadUsers() {
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            // Добавляем администратора
+            if (!users.find(u => u.login === 'admin')) {
+                users.push({
+                    fullName: 'Администратор',
+                    login: 'admin',
+                    email: 'admin@spectechmaster.ru',
+                    role: 'admin',
+                    regDate: '01.01.2023'
+                });
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+            
+            // Загружаем все заявки для подсчета
+            const allRequests = JSON.parse(localStorage.getItem('allRequests') || '[]');
+            
+            // Отображаем пользователей
+            const tableBody = document.getElementById('usersTableBody');
+            tableBody.innerHTML = '';
+            
+            users.forEach(user => {
+                const userRequests = allRequests.filter(r => r.userId === user.login).length;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.login}</td>
+                    <td>${user.fullName}</td>
+                    <td>${user.login}</td>
+                    <td>${user.email}</td>
+                    <td>${user.role === 'admin' ? 'Администратор' : 'Пользователь'}</td>
+                    <td>${userRequests}</td>
+                    <td>${user.regDate || 'Неизвестно'}</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        function updateStats() {
+            const allRequests = JSON.parse(localStorage.getItem('allRequests') || '[]');
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            document.getElementById('totalUsers').textContent = users.length;
+            document.getElementById('totalRequests').textContent = allRequests.length;
+            document.getElementById('newRequests').textContent = allRequests.filter(r => r.status === 'new').length;
+            document.getElementById('solvedRequests').textContent = allRequests.filter(r => r.status === 'solved').length;
+        }
+        
+        function generateTestRequests() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const categories = JSON.parse(localStorage.getItem('categories') || '[]');
+            
+            const testRequests = [];
+            const statuses = ['new', 'solved', 'rejected'];
+            
+            for (let i = 1; i <= 15; i++) {
+                const user = users[Math.floor(Math.random() * users.length)] || { login: 'user', name: 'Пользователь' };
+                const category = categories[Math.floor(Math.random() * categories.length)] || { name: 'Экскаваторы' };
+                const status = statuses[Math.floor(Math.random() * statuses.length)];
+                
+                testRequests.push({
+                    id: Date.now() + i,
+                    userId: user.login,
+                    userName: user.name,
+                    title: `Заявка на ${category.name} ${i}`,
+                    description: `Тестовое описание заявки ${i}`,
+                    category: category.name,
+                    categoryId: category.id,
+                    date: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toLocaleString('ru-RU'),
+                    status: status
+                });
+            }
+            
+            return testRequests;
+        }
+        
+        function getStatusText(status) {
+            switch(status) {
+                case 'new': return 'Новая';
+                case 'solved': return 'Решена';
+                case 'rejected': return 'Отклонена';
+                default: return status;
+            }
+        }
+        
+        let currentRequestId = null;
+        
+        function openRejectModal(requestId) {
+            currentRequestId = requestId;
+            document.getElementById('rejectModal').classList.add('active');
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+        
+        function confirmReject() {
+            const reason = document.getElementById('rejectReason').value.trim();
+            
+            if (!reason) {
+                alert('Пожалуйста, укажите причину отклонения');
+                return;
+            }
+            
+            // Обновляем статус заявки
+            let allRequests = JSON.parse(localStorage.getItem('allRequests') || '[]');
+            const requestIndex = allRequests.findIndex(r => r.id == currentRequestId);
+            
+            if (requestIndex !== -1) {
+                allRequests[requestIndex].status = 'rejected';
+                allRequests[requestIndex].rejectReason = reason;
+                localStorage.setItem('allRequests', JSON.stringify(allRequests));
+                
+                // Обновляем отображение
+                loadRequests();
+                updateStats();
+                
+                // Закрываем модальное окно
+                closeModal('rejectModal');
+                document.getElementById('rejectReason').value = '';
+                
+                alert('Заявка отклонена');
+            }
+        }
+        
+        function solveRequest(requestId) {
+            if (!confirm('Отметить заявку как решенную?')) return;
+            
+            // Обновляем статус заявки
+            let allRequests = JSON.parse(localStorage.getItem('allRequests') || '[]');
+            const requestIndex = allRequests.findIndex(r => r.id == requestId);
+            
+            if (requestIndex !== -1) {
+                allRequests[requestIndex].status = 'solved';
+                localStorage.setItem('allRequests', JSON.stringify(allRequests));
+                
+                // Обновляем отображение
+                loadRequests();
+                updateStats();
+                
+                alert('Заявка отмечена как решенная');
+            }
+        }
+        
+        function addCategory() {
+            const input = document.getElementById('newCategoryName');
+            const name = input.value.trim();
+            
+            if (!name) {
+                alert('Введите название категории');
+                return;
+            }
+            
+            let categories = JSON.parse(localStorage.getItem('categories') || '[]');
+            
+            // Проверяем, существует ли уже такая категория
+            if (categories.find(c => c.name.toLowerCase() === name.toLowerCase())) {
+                alert('Такая категория уже существует');
+                return;
+            }
+            
+            // Добавляем новую категорию
+            const newCategory = {
+                id: Date.now(),
+                name: name
+            };
+            
+            categories.push(newCategory);
+            localStorage.setItem('categories', JSON.stringify(categories));
+            
+            // Обновляем отображение
+            loadCategories();
+            
+            // Очищаем поле ввода
+            input.value = '';
+            
+            alert('Категория добавлена');
+        }
+        
+        function deleteCategory(categoryId) {
+            if (!confirm('Удалить эту категорию? Заявки в этой категории останутся без категории.')) return;
+            
+            let categories = JSON.parse(localStorage.getItem('categories') || '[]');
+            categories = categories.filter(c => c.id != categoryId);
+            localStorage.setItem('categories', JSON.stringify(categories));
+            
+            // Обновляем отображение
+            loadCategories();
+            
+            alert('Категория удалена');
+        }
+    </script>
+</body>
+</html>

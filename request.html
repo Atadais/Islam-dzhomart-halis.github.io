@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СпецТехМастер - Создание заявки</title>
+    
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* БАЗОВЫЕ СТИЛИ И СБРОС */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #1e3a5c;
+            --accent-color: #ff6b35;
+            --bg-color: #f5f7fa;
+            --text-color: #333333;
+            --text-light: #666666;
+            --error-color: #dc3545;
+            --success-color: #28a745;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --radius: 8px;
+        }
+        
+        html {
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* КОНТЕЙНЕРЫ */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* ТИПОГРАФИЯ */
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        h2 {
+            font-size: 1.75rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: #e55a2b;
+        }
+        
+        /* ШАПКА И НАВИГАЦИЯ */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo:hover {
+            color: var(--accent-color);
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 0.75rem;
+        }
+        
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .main-nav a:hover, .main-nav a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+            margin-left: 1rem;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        /* ОСНОВНОЙ КОНТЕНТ */
+        .main-content {
+            flex: 1;
+            padding: 2rem 0;
+        }
+        
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.25rem;
+        }
+        
+        /* ФОРМЫ */
+        .form-container {
+            max-width: 800px;
+            width: 100%;
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .form-label.required:after {
+            content: '*';
+            color: var(--error-color);
+            margin-left: 0.25rem;
+        }
+        
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-family: 'Roboto', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+        
+        .form-input.error, .form-textarea.error, .form-select.error {
+            border-color: var(--error-color);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.875rem;
+            margin-top: 0.3125rem;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .category-badge {
+            padding: 0.5rem 1rem;
+            background-color: #f0f0f0;
+            border: 2px solid transparent;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+        
+        .category-badge:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .category-badge.selected {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+        
+        /* КНОПКИ */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            height: 44px;
+            line-height: 1;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .btn:hover {
+            background-color: #152642;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e55a2b;
+        }
+        
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: var(--text-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        /* ПОДВАЛ */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 0 1.25rem;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.875rem;
+            margin-bottom: 1.875rem;
+        }
+        
+        .footer-section {
+            margin-bottom: 1.25rem;
+        }
+        
+        .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.9375rem;
+            color: white;
+        }
+        
+        .footer-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.625rem;
+            line-height: 1.6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.25rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* АНИМАЦИИ */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .shake {
+            animation: shake 0.5s ease;
+        }
+        
+        /* УТИЛИТЫ */
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .hidden { display: none !important; }
+        
+        /* АДАПТИВНОСТЬ */
+        @media (min-width: 768px) {
+            .form-container {
+                padding: 3rem;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .page-with-sidebar {
+                display: flex;
+                min-height: calc(100vh - 140px);
+            }
+            
+            .sidebar {
+                width: 250px;
+                background-color: var(--primary-color);
+                padding: 2rem 1rem;
+                flex-shrink: 0;
+            }
+            
+            .sidebar-nav ul {
+                list-style: none;
+            }
+            
+            .sidebar-nav a {
+                display: block;
+                color: white;
+                text-decoration: none;
+                padding: 1rem;
+                margin-bottom: 0.5rem;
+                border-radius: var(--radius);
+                transition: var(--transition);
+                height: 50px;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .sidebar-nav a:hover, .sidebar-nav a.active {
+                background-color: rgba(255, 255, 255, 0.1);
+                color: var(--accent-color);
+            }
+            
+            .main-content-with-sidebar {
+                flex: 1;
+                padding: 2rem;
+            }
+            
+            .main-content {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Логотип -->
+                <a href="index.html" class="logo">
+                    <span style="font-size: 1.8rem;">🏗️</span>
+                    <span>СпецТехМастер</span>
+                </a>
+                
+                <!-- Меню -->
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
+                        <li><a href="catalog.html"><i class="fas fa-truck-monster"></i> Каталог</a></li>
+                        <li><a href="services.html"><i class="fas fa-tools"></i> Услуги</a></li>
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> О компании</a></li>
+                        <li><a href="contacts.html"><i class="fas fa-address-book"></i> Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Информация о пользователе -->
+                <div class="user-info" id="userInfo">
+                    <div class="user-avatar" id="userAvatar">ИИ</div>
+                    <div>
+                        <div id="userName">Иван Иванов</div>
+                        <a href="#" id="logoutLink" style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">Выйти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">Создание заявки</h1>
+            
+            <div class="form-container">
+                <form id="requestForm">
+                    <div class="form-group">
+                        <label for="requestTitle" class="form-label required">Название заявки</label>
+                        <input type="text" id="requestTitle" class="form-input" placeholder="Например: Требуется экскаватор для земляных работ" required>
+                        <div class="error-message" id="titleError">Введите название заявки</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="requestDescription" class="form-label required">Описание</label>
+                        <textarea id="requestDescription" class="form-textarea" placeholder="Опишите подробно, какая техника вам нужна, для каких работ, сроки, требования и т.д." required></textarea>
+                        <div class="error-message" id="descriptionError">Введите описание заявки</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Категория техники</label>
+                        <div class="categories" id="categoriesContainer">
+                            <!-- Категории будут загружены через JavaScript -->
+                        </div>
+                        <div class="error-message" id="categoryError">Выберите категорию техники</div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href='cabinet.html'">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </button>
+                        <button type="submit" class="btn btn-accent">
+                            <i class="fas fa-paper-plane"></i> Создать заявку
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <span style="font-size: 1.8rem;">🏗️</span>
+                        <span>СпецТехМастер</span>
+                    </div>
+                    <p class="footer-description">
+                        Ведущий портал для торговли спецтехникой. Продажа, аренда и обслуживание.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Контакты</h3>
+                    <p>+7 (495) 123-45-67</p>
+                    <p>info@spectechmaster.ru</p>
+                    <p>Москва, ул. Строителей, 15</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Часы работы</h3>
+                    <p>Пн-Пт: 9:00-18:00</p>
+                    <p>Сб: 10:00-16:00</p>
+                    <p>Вс: выходной</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 СпецТехМастер. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Проверка авторизации
+            const userData = JSON.parse(localStorage.getItem('user'));
+            if (!userData) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Отображение информации о пользователе
+            document.getElementById('userName').textContent = userData.name;
+            document.getElementById('userAvatar').textContent = getInitials(userData.name);
+            
+            // Выход из системы
+            document.getElementById('logoutLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('user');
+                window.location.href = 'index.html';
+            });
+            
+            // Загрузка категорий
+            loadCategories();
+            
+            // Обработка формы
+            const form = document.getElementById('requestForm');
+            const titleInput = document.getElementById('requestTitle');
+            const descriptionInput = document.getElementById('requestDescription');
+            
+            const titleError = document.getElementById('titleError');
+            const descriptionError = document.getElementById('descriptionError');
+            const categoryError = document.getElementById('categoryError');
+            
+            let selectedCategory = null;
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Сброс ошибок
+                resetErrors();
+                
+                const title = titleInput.value.trim();
+                const description = descriptionInput.value.trim();
+                
+                let isValid = true;
+                
+                // Проверка названия
+                if (!title) {
+                    titleInput.classList.add('error', 'shake');
+                    titleError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Проверка описания
+                if (!description) {
+                    descriptionInput.classList.add('error', 'shake');
+                    descriptionError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Проверка категории
+                if (!selectedCategory) {
+                    categoryError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!isValid) return;
+                
+                // Создание заявки
+                createRequest(title, description, selectedCategory);
+            });
+            
+            // Функция для сброса ошибок
+            function resetErrors() {
+                [titleInput, descriptionInput].forEach(input => {
+                    input.classList.remove('error', 'shake');
+                });
+                
+                [titleError, descriptionError, categoryError].forEach(error => {
+                    error.style.display = 'none';
+                });
+            }
+            
+            // Функция для получения инициалов
+            function getInitials(name) {
+                return name.split(' ').map(n => n[0]).join('').toUpperCase();
+            }
+        });
+        
+        function loadCategories() {
+            const categories = [
+                { id: 1, name: 'Экскаваторы' },
+                { id: 2, name: 'Погрузчики' },
+                { id: 3, name: 'Бульдозеры' },
+                { id: 4, name: 'Краны' },
+                { id: 5, name: 'Мини-техника' },
+                { id: 6, name: 'Самосвалы' },
+                { id: 7, name: 'Катки' },
+                { id: 8, name: 'Бетономешалки' }
+            ];
+            
+            // Сохраняем категории в localStorage
+            localStorage.setItem('categories', JSON.stringify(categories));
+            
+            // Отображаем категории
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = '';
+            
+            categories.forEach(category => {
+                const badge = document.createElement('div');
+                badge.className = 'category-badge';
+                badge.textContent = category.name;
+                badge.dataset.id = category.id;
+                
+                badge.addEventListener('click', function() {
+                    // Снимаем выделение со всех категорий
+                    document.querySelectorAll('.category-badge').forEach(b => {
+                        b.classList.remove('selected');
+                    });
+                    
+                    // Выделяем выбранную категорию
+                    this.classList.add('selected');
+                    window.selectedCategory = category.id;
+                    
+                    // Скрываем ошибку категории
+                    document.getElementById('categoryError').style.display = 'none';
+                });
+                
+                container.appendChild(badge);
+            });
+        }
+        
+        function createRequest(title, description, categoryId) {
+            // Получаем данные пользователя
+            const userData = JSON.parse(localStorage.getItem('user'));
+            const categories = JSON.parse(localStorage.getItem('categories'));
+            const category = categories.find(c => c.id == categoryId);
+            
+            // Создаем новую заявку
+            const newRequest = {
+                id: Date.now(), // Используем timestamp как ID
+                userId: userData.login,
+                userName: userData.name,
+                title: title,
+                description: description,
+                category: category.name,
+                categoryId: categoryId,
+                date: new Date().toLocaleString('ru-RU'),
+                status: 'new'
+            };
+            
+            // Получаем существующие заявки
+            let allRequests = JSON.parse(localStorage.getItem('allRequests') || '[]');
+            allRequests.push(newRequest);
+            localStorage.setItem('allRequests', JSON.stringify(allRequests));
+            
+            // Также добавляем в заявки пользователя
+            let userRequests = JSON.parse(localStorage.getItem('userRequests') || '[]');
+            userRequests.push(newRequest);
+            localStorage.setItem('userRequests', JSON.stringify(userRequests));
+            
+            // Показываем сообщение об успехе
+            alert('Заявка успешно создана!');
+            
+            // Перенаправляем в личный кабинет
+            window.location.href = 'cabinet.html';
+        }
+    </script>
+</body>
+</html>

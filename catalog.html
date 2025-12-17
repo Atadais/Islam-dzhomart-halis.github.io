@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СпецТехМастер - Каталог техники</title>
+    
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* БАЗОВЫЕ СТИЛИ И СБРОС */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #1e3a5c;
+            --accent-color: #ff6b35;
+            --bg-color: #f5f7fa;
+            --text-color: #333333;
+            --text-light: #666666;
+            --error-color: #dc3545;
+            --success-color: #28a745;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --radius: 8px;
+        }
+        
+        html {
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* КОНТЕЙНЕРЫ */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* ТИПОГРАФИЯ */
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        h2 {
+            font-size: 1.75rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: #e55a2b;
+        }
+        
+        /* ШАПКА И НАВИГАЦИЯ */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo:hover {
+            color: var(--accent-color);
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 0.75rem;
+        }
+        
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .main-nav a:hover, .main-nav a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+            margin-left: 1rem;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        /* ОСНОВНОЙ КОНТЕНТ */
+        .main-content {
+            flex: 1;
+            padding: 2rem 0;
+        }
+        
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.25rem;
+            text-align: center;
+        }
+        
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-size: 1.125rem;
+        }
+        
+        /* КАТАЛОГ */
+        .catalog-filters {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .filter-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .filter-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+        
+        .search-btn {
+            padding: 0 1.5rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-btn:hover {
+            background-color: #e55a2b;
+        }
+        
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .equipment-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+        }
+        
+        .equipment-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .equipment-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .equipment-card:hover .equipment-image {
+            transform: scale(1.05);
+        }
+        
+        .equipment-content {
+            padding: 1.5rem;
+        }
+        
+        .equipment-category {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .equipment-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+        
+        .equipment-specs {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .equipment-specs li {
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .equipment-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .equipment-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        /* КНОПКИ */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            height: 44px;
+            line-height: 1;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .btn:hover {
+            background-color: #152642;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e55a2b;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            height: 36px;
+            font-size: 0.875rem;
+            min-width: 80px;
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        /* ПОДВАЛ */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 0 1.25rem;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.875rem;
+            margin-bottom: 1.875rem;
+        }
+        
+        .footer-section {
+            margin-bottom: 1.25rem;
+        }
+        
+        .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.9375rem;
+            color: white;
+        }
+        
+        .footer-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.625rem;
+            line-height: 1.6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.25rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* АНИМАЦИИ */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        /* УТИЛИТЫ */
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .hidden { display: none !important; }
+        
+        /* АДАПТИВНОСТЬ */
+        @media (min-width: 768px) {
+            .catalog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .search-box {
+                max-width: 400px;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .catalog-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .catalog-filters {
+                display: flex;
+                gap: 2rem;
+            }
+            
+            .filter-section {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .page-with-sidebar {
+                display: flex;
+                min-height: calc(100vh - 140px);
+            }
+            
+            .sidebar {
+                width: 250px;
+                background-color: var(--primary-color);
+                padding: 2rem 1rem;
+                flex-shrink: 0;
+            }
+            
+            .sidebar-nav ul {
+                list-style: none;
+            }
+            
+            .sidebar-nav a {
+                display: block;
+                color: white;
+                text-decoration: none;
+                padding: 1rem;
+                margin-bottom: 0.5rem;
+                border-radius: var(--radius);
+                transition: var(--transition);
+                height: 50px;
+                display: flex;
+                align-items: center;
+            }
+            
+            .sidebar-nav a:hover, .sidebar-nav a.active {
+                background-color: rgba(255, 255, 255, 0.1);
+                color: var(--accent-color);
+            }
+            
+            .main-content-with-sidebar {
+                flex: 1;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Логотип -->
+                <a href="index.html" class="logo">
+                    <span style="font-size: 1.8rem;">🏗️</span>
+                    <span>СпецТехМастер</span>
+                </a>
+                
+                <!-- Меню -->
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
+                        <li><a href="catalog.html" class="active"><i class="fas fa-truck-monster"></i> Каталог</a></li>
+                        <li><a href="services.html"><i class="fas fa-tools"></i> Услуги</a></li>
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> О компании</a></li>
+                        <li><a href="contacts.html"><i class="fas fa-address-book"></i> Контакты</a></li>
+                        <li><a href="login.html" id="loginLink"><i class="fas fa-sign-in-alt"></i> Войти</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Информация о пользователе (будет скрыто для гостей) -->
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">ИИ</div>
+                    <div>
+                        <div id="userName">Иван Иванов</div>
+                        <a href="#" id="logoutLink" style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">Выйти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">Каталог спецтехники</h1>
+            <p class="page-subtitle">Более 500 единиц техники в наличии. Продажа и аренда.</p>
+            
+            <!-- Фильтры -->
+            <div class="catalog-filters">
+                <div class="filter-section">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Поиск техники...">
+                        <button class="search-btn" onclick="searchEquipment()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <h3 class="filter-title">Тип техники</h3>
+                    <div class="filter-options" id="typeFilters">
+                        <!-- Типы будут загружены через JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <h3 class="filter-title">Цена</h3>
+                    <div class="filter-options" id="priceFilters">
+                        <button class="filter-btn" data-price="all">Все</button>
+                        <button class="filter-btn" data-price="low">До 1 млн ₽</button>
+                        <button class="filter-btn" data-price="medium">1-5 млн ₽</button>
+                        <button class="filter-btn" data-price="high">От 5 млн ₽</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Каталог техники -->
+            <div class="catalog-grid" id="equipmentGrid">
+                <!-- Карточки техники будут загружены через JavaScript -->
+            </div>
+            
+            <!-- Кнопка "Показать еще" -->
+            <div class="text-center mt-4">
+                <button class="btn btn-accent" id="loadMoreBtn" onclick="loadMoreEquipment()">
+                    <i class="fas fa-sync-alt"></i> Показать еще
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <span style="font-size: 1.8rem;">🏗️</span>
+                        <span>СпецТехМастер</span>
+                    </div>
+                    <p class="footer-description">
+                        Ведущий портал для торговли спецтехникой. Продажа, аренда и обслуживание.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Контакты</h3>
+                    <p>+7 (495) 123-45-67</p>
+                    <p>info@spectechmaster.ru</p>
+                    <p>Москва, ул. Строителей, 15</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Часы работы</h3>
+                    <p>Пн-Пт: 9:00-18:00</p>
+                    <p>Сб: 10:00-16:00</p>
+                    <p>Вс: выходной</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 СпецТехМастер. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Проверка авторизации и отображение информации о пользователе
+            const userData = JSON.parse(localStorage.getItem('user'));
+            if (userData) {
+                document.getElementById('loginLink').style.display = 'none';
+                document.getElementById('userInfo').style.display = 'flex';
+                document.getElementById('userName').textContent = userData.name;
+                document.getElementById('userAvatar').textContent = getInitials(userData.name);
+                
+                // Выход из системы
+                document.getElementById('logoutLink').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('user');
+                    window.location.href = 'index.html';
+                });
+            }
+            
+            // Загрузка типов техники
+            loadEquipmentTypes();
+            
+            // Загрузка техники
+            loadEquipment();
+            
+            // Инициализация фильтров
+            initFilters();
+        });
+        
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').toUpperCase();
+        }
+        
+        function loadEquipmentTypes() {
+            const types = ['Экскаваторы', 'Погрузчики', 'Бульдозеры', 'Краны', 'Мини-техника', 'Самосвалы', 'Катки', 'Бетономешалки'];
+            const container = document.getElementById('typeFilters');
+            
+            // Добавляем кнопку "Все"
+            const allBtn = document.createElement('button');
+            allBtn.className = 'filter-btn active';
+            allBtn.textContent = 'Все';
+            allBtn.dataset.type = 'all';
+            container.appendChild(allBtn);
+            
+            // Добавляем остальные типы
+            types.forEach(type => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.textContent = type;
+                btn.dataset.type = type.toLowerCase();
+                container.appendChild(btn);
+            });
+        }
+        
+        function initFilters() {
+            // Фильтрация по типу
+            document.querySelectorAll('#typeFilters .filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('#typeFilters .filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const type = this.dataset.type;
+                    filterEquipmentByType(type);
+                });
+            });
+            
+            // Фильтрация по цене
+            document.querySelectorAll('#priceFilters .filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('#priceFilters .filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const priceRange = this.dataset.price;
+                    filterEquipmentByPrice(priceRange);
+                });
+            });
+        }
+        
+        function loadEquipment() {
+            const equipment = [
+                {
+                    id: 1,
+                    name: 'Экскаватор-погрузчик JCB 4CX',
+                    category: 'Экскаваторы',
+                    price: 3500000,
+                    image: 'https://avatars.mds.yandex.net/get-autoru-vos/5494481/fb4bb9fc82bd674f31c80b9aef6457ca/584x438',
+                    specs: [
+                        'Мощность: 100 л.с.',
+                        'Глубина копания: 5.8 м',
+                        'Вес: 8.5 т',
+                        'Год: 2022'
+                    ],
+                    description: 'Компактный и мощный экскаватор-погрузчик для городского строительства.'
+                },
+                {
+                    id: 2,
+                    name: 'Фронтальный погрузчик CAT 950M',
+                    category: 'Погрузчики',
+                    price: 7200000,
+                    image: 'https://spetsservice.ru/wp-content/uploads/2025/04/cat950m.jpg',
+                    specs: [
+                        'Мощность: 250 л.с.',
+                        'Объем ковша: 3.5 м³',
+                        'Вес: 20 т',
+                        'Год: 2021'
+                    ],
+                    description: 'Высокопроизводительный погрузчик для работы в карьерах и на складах.'
+                },
+                {
+                    id: 3,
+                    name: 'Мини-экскаватор Kubota U35-4',
+                    category: 'Мини-техника',
+                    price: 2200000,
+                    image: 'https://s.alicdn.com/@sc04/kf/H8295e920d7ca4e7db11ad511a37afda9r.jpg_720x720q50.jpg',
+                    specs: [
+                        'Мощность: 35 л.с.',
+                        'Глубина копания: 3.5 м',
+                        'Вес: 3.5 т',
+                        'Год: 2023'
+                    ],
+                    description: 'Компактный экскаватор для коммунальных работ и ландшафтного дизайна.'
+                },
+                {
+                    id: 4,
+                    name: 'Автокран XCMG QY25K',
+                    category: 'Краны',
+                    price: 12500000,
+                    image: 'https://images.satu.kz/228337786_w640_h640_arenda-avtokrana-xcmg.jpg',
+                    specs: [
+                        'Грузоподъемность: 25 т',
+                        'Вылет стрелы: 32 м',
+                        'Мощность: 290 л.с.',
+                        'Год: 2020'
+                    ],
+                    description: 'Мобильный кран грузоподъемностью 25 тонн для монтажных работ.'
+                },
+                {
+                    id: 5,
+                    name: 'Бульдозер ЧТЗ Б10М',
+                    category: 'Бульдозеры',
+                    price: 8500000,
+                    image: 'https://avatars.mds.yandex.net/i?id=23a5c8ac601089e9afaf188ac3bd2c17_l-4592723-images-thumbs&n=13',
+                    specs: [
+                        'Мощность: 150 л.с.',
+                        'Ширина отвала: 3.2 м',
+                        'Вес: 16 т',
+                        'Год: 2022'
+                    ],
+                    description: 'Надежный бульдозер для планировки и перемещения грунта.'
+                },
+                {
+                    id: 6,
+                    name: 'Самосвал КамАЗ-6520',
+                    category: 'Самосвалы',
+                    price: 4800000,
+                    image: 'https://avatars.mds.yandex.net/get-autoru-vos/6220172/1c7ce19e1cde6083da031ae8d87c82e2/1200x900',
+                    specs: [
+                        'Грузоподъемность: 20 т',
+                        'Объем кузова: 14 м³',
+                        'Мощность: 400 л.с.',
+                        'Год: 2023'
+                    ],
+                    description: 'Внедорожный самосвал для перевозки сыпучих материалов.'
+                }
+            ];
+            
+            // Сохраняем в localStorage
+            localStorage.setItem('equipment', JSON.stringify(equipment));
+            
+            // Отображаем технику
+            renderEquipment(equipment);
+        }
+        
+        function renderEquipment(equipmentList) {
+            const container = document.getElementById('equipmentGrid');
+            container.innerHTML = '';
+            
+            equipmentList.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'equipment-card animate';
+                
+                // Форматируем цену
+                const formattedPrice = item.price.toLocaleString('ru-RU') + ' ₽';
+                
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="equipment-image">
+                    <div class="equipment-content">
+                        <span class="equipment-category">${item.category}</span>
+                        <h3 class="equipment-title">${item.name}</h3>
+                        <ul class="equipment-specs">
+                            ${item.specs.map(spec => `<li><i class="fas fa-check"></i> ${spec}</li>`).join('')}
+                        </ul>
+                        <p class="equipment-price">${formattedPrice}</p>
+                        <div class="equipment-actions">
+                            <button class="btn btn-accent btn-sm btn-block" onclick="showEquipmentDetails(${item.id})">
+                                <i class="fas fa-info-circle"></i> Подробнее
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        function filterEquipmentByType(type) {
+            const equipment = JSON.parse(localStorage.getItem('equipment') || '[]');
+            
+            if (type === 'all') {
+                renderEquipment(equipment);
+            } else {
+                const filtered = equipment.filter(item => 
+                    item.category.toLowerCase() === type
+                );
+                renderEquipment(filtered);
+            }
+        }
+        
+        function filterEquipmentByPrice(priceRange) {
+            const equipment = JSON.parse(localStorage.getItem('equipment') || '[]');
+            
+            let filtered = [];
+            switch(priceRange) {
+                case 'all':
+                    filtered = equipment;
+                    break;
+                case 'low':
+                    filtered = equipment.filter(item => item.price < 1000000);
+                    break;
+                case 'medium':
+                    filtered = equipment.filter(item => item.price >= 1000000 && item.price <= 5000000);
+                    break;
+                case 'high':
+                    filtered = equipment.filter(item => item.price > 5000000);
+                    break;
+            }
+            
+            renderEquipment(filtered);
+        }
+        
+        function searchEquipment() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const equipment = JSON.parse(localStorage.getItem('equipment') || '[]');
+            
+            if (!searchTerm) {
+                renderEquipment(equipment);
+                return;
+            }
+            
+            const filtered = equipment.filter(item => 
+                item.name.toLowerCase().includes(searchTerm) ||
+                item.category.toLowerCase().includes(searchTerm) ||
+                item.description.toLowerCase().includes(searchTerm)
+            );
+            
+            renderEquipment(filtered);
+        }
+        
+        function loadMoreEquipment() {
+            // В реальном приложении здесь бы загружались дополнительные данные с сервера
+            const btn = document.getElementById('loadMoreBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Загрузка...';
+            
+            setTimeout(() => {
+                // Имитация загрузки
+                const newEquipment = [
+                    {
+                        id: 7,
+                        name: 'Дорожный каток Dynapac CC1200',
+                        category: 'Катки',
+                        price: 3200000,
+                        image: 'https://vivozgrunta24.ru/wp-content/uploads/2025/08/mini-katok-dynapac.jpg',
+                        specs: [
+                            'Вес: 12 т',
+                            'Ширина вальца: 2.1 м',
+                            'Мощность: 120 л.с.',
+                            'Год: 2021'
+                        ],
+                        description: 'Вибрационный каток для уплотнения асфальта.'
+                    },
+                    {
+                        id: 8,
+                        name: 'Бетоносмеситель Liebherr HTM 804',
+                        category: 'Бетономешалки',
+                        price: 1800000,
+                        image: 'https://avatars.mds.yandex.net/i?id=693f4f05e93583dec117316f7a2f2ed6_l-4252773-images-thumbs&n=13',
+                        specs: [
+                            'Объем: 8 м³',
+                            'Мощность: 220 л.с.',
+                            'Вес: 15 т',
+                            'Год: 2022'
+                        ],
+                        description: 'Мобильный бетоносмеситель для строительных площадок.'
+                    }
+                ];
+                
+                // Добавляем к существующим данным
+                const existingEquipment = JSON.parse(localStorage.getItem('equipment') || '[]');
+                const allEquipment = [...existingEquipment, ...newEquipment];
+                localStorage.setItem('equipment', JSON.stringify(allEquipment));
+                
+                // Отображаем все
+                renderEquipment(allEquipment);
+                
+                btn.innerHTML = '<i class="fas fa-sync-alt"></i> Показать еще';
+                btn.disabled = true;
+                btn.textContent = 'Все загружено';
+            }, 1000);
+        }
+        
+        function showEquipmentDetails(id) {
+            const equipment = JSON.parse(localStorage.getItem('equipment') || '[]');
+            const item = equipment.find(e => e.id === id);
+            
+            if (item) {
+                // В реальном приложении можно открыть модальное окно или перейти на страницу товара
+                alert(`Детали: ${item.name}\n\n${item.description}\n\nЦена: ${item.price.toLocaleString('ru-RU')} ₽`);
+            }
+        }
+    </script>
+</body>
+</html>

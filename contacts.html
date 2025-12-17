@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СпецТехМастер - Контакты</title>
+    
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* БАЗОВЫЕ СТИЛИ И СБРОС */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #1e3a5c;
+            --accent-color: #ff6b35;
+            --bg-color: #f5f7fa;
+            --text-color: #333333;
+            --text-light: #666666;
+            --error-color: #dc3545;
+            --success-color: #28a745;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --radius: 8px;
+        }
+        
+        html {
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* КОНТЕЙНЕРЫ */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* ТИПОГРАФИЯ */
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        h2 {
+            font-size: 1.75rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: #e55a2b;
+        }
+        
+        /* ШАПКА И НАВИГАЦИЯ */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo:hover {
+            color: var(--accent-color);
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 0.75rem;
+        }
+        
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .main-nav a:hover, .main-nav a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--accent-color);
+        }
+        
+        /* ОСНОВНОЙ КОНТЕНТ */
+        .main-content {
+            flex: 1;
+            padding: 2rem 0;
+        }
+        
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.25rem;
+            text-align: center;
+        }
+        
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-size: 1.125rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* КОНТАКТЫ */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-info {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .contact-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-content p {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-link {
+            display: inline-block;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+        
+        .contact-form {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .form-label.required:after {
+            content: '*';
+            color: var(--error-color);
+            margin-left: 0.25rem;
+        }
+        
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-family: 'Roboto', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+        
+        .form-input.error, .form-textarea.error {
+            border-color: var(--error-color);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.875rem;
+            margin-top: 0.3125rem;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .success-message {
+            color: var(--success-color);
+            font-size: 1rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: rgba(40, 167, 69, 0.1);
+            border-radius: var(--radius);
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        /* КНОПКИ */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            height: 44px;
+            line-height: 1;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .btn:hover {
+            background-color: #152642;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e55a2b;
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        /* КАРТА */
+        .map-section {
+            margin-bottom: 3rem;
+        }
+        
+        .map-container {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #f0f0f0;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 1.125rem;
+        }
+        
+        /* ФИЛИАЛЫ */
+        .branches-section {
+            margin-bottom: 3rem;
+        }
+        
+        .branches-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .branch-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .branch-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .branch-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .branch-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+            flex-shrink: 0;
+        }
+        
+        .branch-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+        
+        .branch-info {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        /* ПОДВАЛ */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 0 1.25rem;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.875rem;
+            margin-bottom: 1.875rem;
+        }
+        
+        .footer-section {
+            margin-bottom: 1.25rem;
+        }
+        
+        .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.9375rem;
+            color: white;
+        }
+        
+        .footer-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.625rem;
+            line-height: 1.6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.25rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* АНИМАЦИИ */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .shake {
+            animation: shake 0.5s ease;
+        }
+        
+        .animate {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        /* УТИЛИТЫ */
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        
+        /* АДАПТИВНОСТЬ */
+        @media (min-width: 768px) {
+            .contacts-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .branches-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .map-placeholder {
+                height: 400px;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .branches-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .page-with-sidebar {
+                display: flex;
+                min-height: calc(100vh - 140px);
+            }
+            
+            .sidebar {
+                width: 250px;
+                background-color: var(--primary-color);
+                padding: 2rem 1rem;
+                flex-shrink: 0;
+            }
+            
+            .sidebar-nav ul {
+                list-style: none;
+            }
+            
+            .sidebar-nav a {
+                display: block;
+                color: white;
+                text-decoration: none;
+                padding: 1rem;
+                margin-bottom: 0.5rem;
+                border-radius: var(--radius);
+                transition: var(--transition);
+                height: 50px;
+                display: flex;
+                align-items: center;
+            }
+            
+            .sidebar-nav a:hover, .sidebar-nav a.active {
+                background-color: rgba(255, 255, 255, 0.1);
+                color: var(--accent-color);
+            }
+            
+            .main-content-with-sidebar {
+                flex: 1;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Логотип -->
+                <a href="index.html" class="logo">
+                    <span style="font-size: 1.8rem;">🏗️</span>
+                    <span>СпецТехМастер</span>
+                </a>
+                
+                <!-- Меню -->
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
+                        <li><a href="catalog.html"><i class="fas fa-truck-monster"></i> Каталог</a></li>
+                        <li><a href="services.html"><i class="fas fa-tools"></i> Услуги</a></li>
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> О компании</a></li>
+                        <li><a href="contacts.html" class="active"><i class="fas fa-address-book"></i> Контакты</a></li>
+                        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Войти</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">Контакты</h1>
+            <p class="page-subtitle">
+                Свяжитесь с нами любым удобным способом. Мы всегда готовы ответить на ваши вопросы 
+                и помочь с подбором техники.
+            </p>
+            
+            <!-- Контактная информация и форма -->
+            <div class="contacts-grid">
+                <!-- Контактная информация -->
+                <div class="contact-info animate">
+                    <h2>Контактная информация</h2>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-content">
+                            <h3>Адрес</h3>
+                            <p>Москва, ул. Строителей, 15</p>
+                            <p>Бизнес-центр "Технопарк", этаж 3</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-content">
+                            <h3>Телефоны</h3>
+                            <p>+7 (495) 123-45-67</p>
+                            <p>+7 (800) 123-45-68 (бесплатно по РФ)</p>
+                            <a href="tel:+74951234567" class="contact-link">
+                                <i class="fas fa-phone"></i> Позвонить
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-content">
+                            <h3>Email</h3>
+                            <p>info@spectechmaster.ru</p>
+                            <p>sales@spectechmaster.ru</p>
+                            <a href="mailto:info@spectechmaster.ru" class="contact-link">
+                                <i class="fas fa-envelope"></i> Написать
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-content">
+                            <h3>Часы работы</h3>
+                            <p><strong>Пн-Пт:</strong> 9:00-18:00</p>
+                            <p><strong>Сб:</strong> 10:00-16:00</p>
+                            <p><strong>Вс:</strong> выходной</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="contact-content">
+                            <h3>Техническая поддержка</h3>
+                            <p>+7 (495) 987-65-43</p>
+                            <p>support@spectechmaster.ru</p>
+                            <p>Круглосуточно, без выходных</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Форма обратной связи -->
+                <div class="contact-form animate">
+                    <h2>Обратная связь</h2>
+                    <p class="text-muted mb-3">Заполните форму, и мы свяжемся с вами в течение 30 минут</p>
+                    
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName" class="form-label required">Ваше имя</label>
+                            <input type="text" id="contactName" class="form-input" placeholder="Иванов Иван" required>
+                            <div class="error-message" id="nameError">Введите ваше имя</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactPhone" class="form-label required">Телефон</label>
+                            <input type="tel" id="contactPhone" class="form-input" placeholder="+7 (999) 123-45-67" required>
+                            <div class="error-message" id="phoneError">Введите корректный номер телефона</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactEmail" class="form-label required">Email</label>
+                            <input type="email" id="contactEmail" class="form-input" placeholder="example@mail.ru" required>
+                            <div class="error-message" id="emailError">Введите корректный email</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactSubject" class="form-label">Тема обращения</label>
+                            <select id="contactSubject" class="form-input">
+                                <option value="">Выберите тему</option>
+                                <option value="buy">Покупка техники</option>
+                                <option value="rent">Аренда техники</option>
+                                <option value="service">Сервисное обслуживание</option>
+                                <option value="consult">Консультация</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactMessage" class="form-label required">Сообщение</label>
+                            <textarea id="contactMessage" class="form-textarea" placeholder="Опишите ваш вопрос или задачу..." required></textarea>
+                            <div class="error-message" id="messageError">Введите ваше сообщение</div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-accent btn-block">
+                            <i class="fas fa-paper-plane"></i> Отправить сообщение
+                        </button>
+                        
+                        <div class="success-message" id="successMessage">
+                            <i class="fas fa-check-circle"></i> Сообщение успешно отправлено! Мы свяжемся с вами в ближайшее время.
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Карта -->
+            <section class="map-section animate">
+                <h2 class="text-center mb-3">Как нас найти</h2>
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <div class="text-center">
+                            <i class="fas fa-map-marked-alt" style="font-size: 3rem; margin-bottom: 1rem; color: var(--accent-color);"></i>
+                            <p>Здесь будет карта с нашим местоположением</p>
+                            <p class="text-muted" style="font-size: 0.875rem; margin-top: 0.5rem;">
+                                Москва, ул. Строителей, 15
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Филиалы -->
+            <section class="branches-section animate">
+                <h2 class="text-center mb-3">Наши филиалы</h2>
+                <div class="branches-grid">
+                    <div class="branch-card">
+                        <div class="branch-header">
+                            <div class="branch-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <h3 class="branch-title">Москва</h3>
+                        </div>
+                        <div class="branch-info">
+                            <p><strong>Адрес:</strong> ул. Строителей, 15</p>
+                            <p><strong>Телефон:</strong> +7 (495) 123-45-67</p>
+                            <p><strong>Часы работы:</strong> Пн-Пт 9:00-18:00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="branch-card">
+                        <div class="branch-header">
+                            <div class="branch-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <h3 class="branch-title">Санкт-Петербург</h3>
+                        </div>
+                        <div class="branch-info">
+                            <p><strong>Адрес:</strong> пр. Стачек, 47</p>
+                            <p><strong>Телефон:</strong> +7 (812) 456-78-90</p>
+                            <p><strong>Часы работы:</strong> Пн-Пт 9:00-18:00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="branch-card">
+                        <div class="branch-header">
+                            <div class="branch-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <h3 class="branch-title">Екатеринбург</h3>
+                        </div>
+                        <div class="branch-info">
+                            <p><strong>Адрес:</strong> ул. Машиностроителей, 10</p>
+                            <p><strong>Телефон:</strong> +7 (343) 789-01-23</p>
+                            <p><strong>Часы работы:</strong> Пн-Пт 9:00-18:00</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <span style="font-size: 1.8rem;">🏗️</span>
+                        <span>СпецТехМастер</span>
+                    </div>
+                    <p class="footer-description">
+                        Ведущий портал для торговли спецтехникой. Продажа, аренда и обслуживание.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Контакты</h3>
+                    <p>+7 (495) 123-45-67</p>
+                    <p>info@spectechmaster.ru</p>
+                    <p>Москва, ул. Строителей, 15</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Часы работы</h3>
+                    <p>Пн-Пт: 9:00-18:00</p>
+                    <p>Сб: 10:00-16:00</p>
+                    <p>Вс: выходной</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 СпецТехМастер. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const nameInput = document.getElementById('contactName');
+            const phoneInput = document.getElementById('contactPhone');
+            const emailInput = document.getElementById('contactEmail');
+            const messageInput = document.getElementById('contactMessage');
+            
+            const nameError = document.getElementById('nameError');
+            const phoneError = document.getElementById('phoneError');
+            const emailError = document.getElementById('emailError');
+            const messageError = document.getElementById('messageError');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Валидация телефона
+            function validatePhone(phone) {
+                const regex = /^(\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/;
+                return regex.test(phone);
+            }
+            
+            // Валидация email
+            function validateEmail(email) {
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return regex.test(email);
+            }
+            
+            // Маска для телефона
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                
+                if (value.length > 0) {
+                    if (value[0] === '7' || value[0] === '8') {
+                        value = '+7' + value.substring(1);
+                    } else {
+                        value = '+7' + value;
+                    }
+                    
+                    // Форматирование
+                    if (value.length > 2) value = value.substring(0, 2) + ' (' + value.substring(2);
+                    if (value.length > 7) value = value.substring(0, 7) + ') ' + value.substring(7);
+                    if (value.length > 12) value = value.substring(0, 12) + '-' + value.substring(12);
+                    if (value.length > 15) value = value.substring(0, 15) + '-' + value.substring(15);
+                }
+                
+                e.target.value = value;
+            });
+            
+            // Обработка отправки формы
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Сброс ошибок и сообщений
+                resetMessages();
+                
+                const name = nameInput.value.trim();
+                const phone = phoneInput.value.trim();
+                const email = emailInput.value.trim();
+                const message = messageInput.value.trim();
+                
+                let isValid = true;
+                
+                // Проверка имени
+                if (!name) {
+                    nameInput.classList.add('error', 'shake');
+                    nameError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Проверка телефона
+                if (!phone) {
+                    phoneInput.classList.add('error', 'shake');
+                    phoneError.textContent = 'Введите номер телефона';
+                    phoneError.style.display = 'block';
+                    isValid = false;
+                } else if (!validatePhone(phone)) {
+                    phoneInput.classList.add('error', 'shake');
+                    phoneError.textContent = 'Введите корректный номер телефона';
+                    phoneError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Проверка email
+                if (!email) {
+                    emailInput.classList.add('error', 'shake');
+                    emailError.textContent = 'Введите email';
+                    emailError.style.display = 'block';
+                    isValid = false;
+                } else if (!validateEmail(email)) {
+                    emailInput.classList.add('error', 'shake');
+                    emailError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Проверка сообщения
+                if (!message) {
+                    messageInput.classList.add('error', 'shake');
+                    messageError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!isValid) return;
+                
+                // Имитация отправки на сервер
+                setTimeout(() => {
+                    // Сохраняем обращение в localStorage
+                    const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+                    contacts.push({
+                        name: name,
+                        phone: phone,
+                        email: email,
+                        subject: document.getElementById('contactSubject').value,
+                        message: message,
+                        date: new Date().toLocaleString('ru-RU')
+                    });
+                    localStorage.setItem('contacts', JSON.stringify(contacts));
+                    
+                    // Показываем сообщение об успехе
+                    successMessage.style.display = 'block';
+                    
+                    // Очищаем форму
+                    contactForm.reset();
+                    
+                    // Скрываем сообщение через 5 секунд
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                }, 1000);
+            });
+            
+            // Функция для сброса сообщений
+            function resetMessages() {
+                [nameInput, phoneInput, emailInput, messageInput].forEach(input => {
+                    input.classList.remove('error', 'shake');
+                });
+                
+                [nameError, phoneError, emailError, messageError].forEach(error => {
+                    error.style.display = 'none';
+                });
+                
+                successMessage.style.display = 'none';
+            }
+            
+            // Сброс ошибок при фокусе
+            [nameInput, phoneInput, emailInput, messageInput].forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.classList.remove('error', 'shake');
+                    
+                    switch(this.id) {
+                        case 'contactName':
+                            nameError.style.display = 'none';
+                            break;
+                        case 'contactPhone':
+                            phoneError.style.display = 'none';
+                            break;
+                        case 'contactEmail':
+                            emailError.style.display = 'none';
+                            break;
+                        case 'contactMessage':
+                            messageError.style.display = 'none';
+                            break;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
